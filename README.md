@@ -1,90 +1,19 @@
 
-# ⚡ Quantum Felix — Scenario & Strategy Simulation Engine  
+# 🐱 Quantum Felix — Simulation & Strategy Engine inspired by Schrödinger’s Cat  
 
-[![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg?logo=python)](https://www.python.org/)  
-[![Status](https://img.shields.io/badge/status-Research--Preview-orange)]()  
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-green.svg)](./LICENSE)  
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](./CONTRIBUTING.md)  
-
-**Quantum Felix** is an **experimental simulation and orchestration engine** designed for **multi-scenario testing, large-scale backtesting, and strategy optimization**.  
-It is currently in a **Research Preview** stage — functional, but still being structured and systematized.  
+Quantum Felix is a research-preview engine for multi-scenario simulation, strategy backtesting, and stress-testing under uncertainty.  
+Its unique feature is a *Schrödinger’s Cat–inspired probabilistic early stopping mechanism*, where training continues or halts based on dynamic probability amplitudes (`psi_alive`, `psi_dead`, `cat_fidelity`).  
 
 ---
 
-## ✨ Key Features (in progress)  
+## ✨ Features  
 
-- 🔁 **Scenario Factory**  
-  - Realistic + synthetic trajectories  
-  - Regime switching, shocks, and drift injection  
-
-- 🧪 **Backtesting & Stress Testing**  
-  - Walk-forward analysis  
-  - Multi-seed Monte Carlo sweeps  
-  - τ-sweep regime exploration  
-
-- 🧭 **Strategy Orchestration**  
-  - Plug-in Strategy API (under development)  
-  - Support for rule-based, ML, or hybrid policies  
-
-- 🧯 **Cost & Risk Profiling**  
-  - Transaction fee, spread, slippage models  
-  - Latency and memory profiling (planned)  
-
-- 📊 **Metrics & Reporting**  
-  - PnL, Sharpe/Sortino, Drawdown, Stability Index  
-  - JSON/CSV summaries, HTML reports (WIP)  
-
-- 🧩 **Integration with AstroMind-4D (planned)**  
-  - Use AstroMind outputs as **policy signals**  
-  - Apply MetaSentinel gating for risk control  
+- **Scenario diversity** → synthetic + realistic data generation  
+- **Systematic evaluation** → sweeps, multi-seeds, robust metrics  
+- **Auditability** → configs, seeds, and results stored for reproducibility  
+- **Quantum-inspired early stopping** → avoids premature convergence, captures non-linear dynamics  
 
 ---
-
-## 🧩 Architecture (Conceptual)  
-
-```mermaid
-flowchart TD
-    D[Data Loader] --> S[Scenario Engine]
-    S --> R[Runtime Executor]
-    R --> E[Evaluator & Metrics]
-    E --> O[Optimizer]
-    O --> REP[Reporter]
-
-    subgraph Scenario Engine
-        SYN[Synthetic Generator] --> S
-        REAL[Realistic Ingest] --> S
-        REG[Regime Switcher] --> S
-    end
-
-    subgraph Runtime Executor
-        STRAT[Strategy API] --> R
-    end
-```
-
----
-
-## 🐈 Quantum Early Stopping (Unique Approach)  
-
-One of the most distinctive features of **Quantum Felix** is its **probabilistic “quantum-inspired” approach** to managing early stopping and overfitting:  
-
-- **Unique Method** → Instead of deterministic thresholds, Quantum Felix uses a metaphor of **quantum state collapse** to decide when to stop or continue training.  
-
-- **Core Concepts**:  
-  - `psi_alive` / `psi_dead` represent the **probability amplitudes** of the system being in a *continue* vs *stop* state.  
-  - `cat_fidelity` measures how well the current trajectory aligns with the best past states.  
-  - Probabilities are updated dynamically based on **fidelity** and **observed improvement**.  
-
-- **Why it helps**:  
-  - Avoids **premature stopping**, allowing models to explore potential performance gains.  
-  - Provides a **softer, probabilistic decision rule** instead of a hard cutoff.  
-
-- **Challenges**:  
-  - The effectiveness depends on how well `fidelity` and `improvement` reflect actual training progress.  
-  - Debugging and tuning can be harder than with deterministic early stopping.  
-
-- **In summary**: This is a **creative and unconventional experiment**. If effective, it could provide a new way to manage **training robustness and resilience** in ML pipelines.  
-
-```
 
 ### 🐱 Schrödinger’s Cat Analogy  
 
@@ -128,56 +57,34 @@ This makes it useful for **finance, IoT, robotics, energy, and anomaly detection
 
 ```
 quantum-felix/
-├─ felix/
-│  ├─ data/         # data loaders & validators
-│  ├─ scenarios/    # synthetic + realistic generators
-│  ├─ strategies/   # strategy API + examples
-│  ├─ runtime/      # executor & orchestration
-│  ├─ evaluate/     # metrics & risk evaluation
-│  ├─ optimize/     # parameter sweeps, optimization
-│  └─ report/       # exporters (CSV, JSON, HTML)
-├─ configs/         # YAML presets
-├─ scripts/         # CLI tools
-├─ examples/        # notebooks and demos
-├─ tests/
+├─ src/felix/
+│  ├─ quantum_cat.py       # main quantum-inspired early stopping engine
+│  ├─ __main__.py          # entry point for `python -m felix`
+│  └─ __init__.py
+├─ scripts/
+│  └─ run_quantum_cat.py   # CLI wrapper
 ├─ README.md
-├─ LICENSE
-└─ requirements.txt
+├─ requirements.txt
+└─ LICENSE
 ```
 
 ---
 
-## ⚙️ Quickstart (WIP)  
+## 🚀 Quick Start  
 
 ```bash
-# Install dependencies
-pip install -r requirements.txt
+# Install in editable mode
+py -3.13 -m pip install -e .
 
-# Run a simple scenario backtest (WIP)
-python scripts/run_backtest.py --config configs/example.yaml --strategy mean_revert.yaml
+# Run help
+quantum-cat --help
+
+# Run with test config
+quantum-cat --complex-test --realistic
 ```
-
----
-
-## 🚧 Status  
-
-This project is **Work in Progress**:  
-- ✅ Core ideas implemented (scenarios, sweeps, cost models)  
-- 🛠️ Modularization in progress (Strategy API, reporting)  
-- 🔮 Planned integrations (AstroMind-4D bridge, HTML reports)  
-
----
-
-## 🤝 Contributing  
-
-Contributions are welcome, especially in:  
-- Modular **Strategy API** design  
-- Extended **metrics & reporting**  
-- Domain-specific scenarios (finance, robotics, energy)  
 
 ---
 
 ## 📜 License  
 
-This project is licensed under the **Apache License 2.0**.  
-See [LICENSE](./LICENSE) for details.  
+Apache License 2.0  
