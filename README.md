@@ -1,3 +1,4 @@
+
 # ⚡ Quantum Felix — Scenario & Strategy Simulation Engine  
 
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg?logo=python)](https://www.python.org/)  
@@ -87,25 +88,26 @@ One of the most distinctive features of **Quantum Felix** is its **probabilistic
 
 ```mermaid
 flowchart TD
-    A[Start Training Epoch t] --> B[Compute validation metrics]
+    A[Start training epoch t] --> B[Compute validation metrics]
     B --> C[Compute improvement Δ and fidelity F]
-    C --> D[Update amplitudes ψ_alive, ψ_dead]
-    D --> E[Normalize amplitudes (|ψ|^2 = 1)]
+    C --> D[Update amplitudes psi_alive, psi_dead]
+    D --> E[Normalize amplitudes (&#124;psi&#124;^2 = 1)]
     E --> F{Decision rule}
     F -->|Sample / Threshold| G[Collapse to state]
-    G -->|ψ_dead| H[STOP training]
-    G -->|ψ_alive| I[CONTINUE training]
+    G -->|psi_dead| H[STOP training]
+    G -->|psi_alive| I[CONTINUE training]
     I --> J[Proceed to epoch t+1]
     H --> K[Save best model / finalize]
-    
-    subgraph Update Equations (conceptual)
-        U1[ψ_alive ← ψ_alive + α·g(F, Δ)] --> U3[softclip]
-        U2[ψ_dead  ← ψ_dead  + β·h(F, Δ)] --> U3
+
+    subgraph Update_Equations [Update Equations (conceptual)]
+        U1[psi_alive <- psi_alive + alpha * g(F, Δ)] --> U3[softclip]
+        U2[psi_dead  <- psi_dead  + beta  * h(F, Δ)] --> U3
     end
 
     C -.-> U1
     C -.-> U2
     U3 -.-> D
+
 ```
 
 ### 🐱 Schrödinger’s Cat Analogy  
