@@ -88,26 +88,25 @@ One of the most distinctive features of **Quantum Felix** is its **probabilistic
 
 ```mermaid
 flowchart TD
-   flowchart TD
-    A[Start training epoch t] --> B[Compute validation metrics]
-    B --> C[Compute improvement Delta and fidelity F]
-    C --> D[Update amplitudes psi_alive, psi_dead]
-    D --> E[Normalize amplitudes (abs(psi)^2 = 1)]
-    E --> F{Decision rule}
-    F -->|Sample / Threshold| G[Collapse to state]
-    G -->|psi_dead| H[STOP training]
-    G -->|psi_alive| I[CONTINUE training]
-    I --> J[Proceed to epoch t+1]
-    H --> K[Save best model / finalize]
+  A[Start training epoch t] --> B[Compute validation metrics]
+  B --> C[Compute improvement Delta and fidelity F]
+  C --> D[Update amplitudes psi_alive, psi_dead]
+  D --> E[Normalize amplitudes (abs(psi)^2 = 1)]
+  E --> F{Decision rule}
+  F -->|Sample / Threshold| G[Collapse to state]
+  G -->|psi_dead| H[STOP training]
+  G -->|psi_alive| I[CONTINUE training]
+  I --> J[Proceed to epoch t+1]
+  H --> K[Save best model / finalize]
 
-    subgraph Update_Equations [Update Equations (conceptual)]
-        U1[psi_alive <- psi_alive + alpha * g(F, Delta)] --> U3[softclip]
-        U2[psi_dead  <- psi_dead  + beta  * h(F, Delta)] --> U3
-    end
+  subgraph Update_Equations [Update Equations (conceptual)]
+    U1[psi_alive <- psi_alive + alpha * g(F, Delta)] --> U3[softclip]
+    U2[psi_dead  <- psi_dead  + beta  * h(F, Delta)] --> U3
+  end
 
-    C -.-> U1
-    C -.-> U2
-    U3 -.-> D
+  C -.-> U1
+  C -.-> U2
+  U3 -.-> D
 
 
 ```
