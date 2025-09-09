@@ -1,200 +1,125 @@
-[README.md](https://github.com/user-attachments/files/22244059/README.md)
-# ⚡ Quantum Felix — Scenario & Strategy Simulation Engine  
 
-[![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg?logo=python)](https://www.python.org/)  
-[![Status](https://img.shields.io/badge/status-Research--Preview-orange)]()  
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-green.svg)](./LICENSE)  
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](./CONTRIBUTING.md)  
+# Quantum Felix — Quantum-Inspired Simulation & Strategy Engine
 
-**Quantum Felix** is an **experimental simulation and orchestration engine** designed for **multi-scenario testing, large-scale backtesting, and strategy optimization**.  
-It is currently in a **Research Preview** stage — functional, but still being structured and systematized.  
+**Quantum Felix** is a research prototype that introduces a *quantum-inspired early stopping* mechanism for simulations, backtesting, and stress-testing under uncertainty.  
+Although entirely classical (Python, NumPy, SciPy), it borrows concepts from **quantum mechanics** to manage uncertainty in model training and evaluation.
 
 ---
 
-## ✨ Key Features (in progress)  
+## ⚙️ Technology Core
 
-- 🔁 **Scenario Factory**  
-  - Realistic + synthetic trajectories  
-  - Regime switching, shocks, and drift injection  
+Traditional early stopping monitors a validation metric and stops once it flattens.  
+This is simple but **too deterministic**: noise or temporary stagnation often trigger *premature stopping*.
 
-- 🧪 **Backtesting & Stress Testing**  
-  - Walk-forward analysis  
-  - Multi-seed Monte Carlo sweeps  
-  - τ-sweep regime exploration  
+Quantum Felix replaces the binary rule with a **probabilistic model**:
 
-- 🧭 **Strategy Orchestration**  
-  - Plug-in Strategy API (under development)  
-  - Support for rule-based, ML, or hybrid policies  
+- `psi_alive` → amplitude that training should continue  
+- `psi_dead` → amplitude that training should stop  
+- **Update rules**:
+  - `psi_alive` increases if *fidelity* (consistency with the best past result) and *improvement* are high  
+  - `psi_dead` increases otherwise  
+- Amplitudes are **normalized** so that |psi_alive|² + |psi_dead|² = 1  
+- At each epoch the system performs a **collapse**:
+  - If `psi_dead` dominates → STOP  
+  - Else → CONTINUE  
 
-- 🧯 **Cost & Risk Profiling**  
-  - Transaction fee, spread, slippage models  
-  - Latency and memory profiling (planned)  
-
-- 📊 **Metrics & Reporting**  
-  - PnL, Sharpe/Sortino, Drawdown, Stability Index  
-  - JSON/CSV summaries, HTML reports (WIP)  
-
-- 🧩 **Integration with AstroMind-4D (planned)**  
-  - Use AstroMind outputs as **policy signals**  
-  - Apply MetaSentinel gating for risk control  
+This approach introduces **stochastic buffering**: the model can explore deeper even if short-term signals are ambiguous.
 
 ---
 
-## 🧩 Architecture (Conceptual)  
+## 🧩 Architecture (Conceptual)
 
-```mermaid
-flowchart TD
-    D[Data Loader] --> S[Scenario Engine]
-    S --> R[Runtime Executor]
-    R --> E[Evaluator & Metrics]
-    E --> O[Optimizer]
-    O --> REP[Reporter]
-
-    subgraph Scenario Engine
-        SYN[Synthetic Generator] --> S
-        REAL[Realistic Ingest] --> S
-        REG[Regime Switcher] --> S
-    end
-
-    subgraph Runtime Executor
-        STRAT[Strategy API] --> R
-    end
-```
-
----
-
-## 🐈 Quantum Early Stopping (Unique Approach)  
-
-One of the most distinctive features of **Quantum Felix** is its **probabilistic “quantum-inspired” approach** to managing early stopping and overfitting:  
-
-- **Unique Method** → Instead of deterministic thresholds, Quantum Felix uses a metaphor of **quantum state collapse** to decide when to stop or continue training.  
-
-- **Core Concepts**:  
-  - `psi_alive` / `psi_dead` represent the **probability amplitudes** of the system being in a *continue* vs *stop* state.  
-  - `cat_fidelity` measures how well the current trajectory aligns with the best past states.  
-  - Probabilities are updated dynamically based on **fidelity** and **observed improvement**.  
-
-- **Why it helps**:  
-  - Avoids **premature stopping**, allowing models to explore potential performance gains.  
-  - Provides a **softer, probabilistic decision rule** instead of a hard cutoff.  
-
-- **Challenges**:  
-  - The effectiveness depends on how well `fidelity` and `improvement` reflect actual training progress.  
-  - Debugging and tuning can be harder than with deterministic early stopping.  
-
-- **In summary**: This is a **creative and unconventional experiment**. If effective, it could provide a new way to manage **training robustness and resilience** in ML pipelines.  
-
-### 🧭 Flow Diagram  
-
-```mermaid
-### 🧭 Flow Diagram  
-
-```mermaid
-graph TD
-  A[Start training epoch] --> B[Compute validation metrics]
-  B --> C[Update amplitudes]
-  C --> D{Decision}
-  D --> E[STOP]
-  D --> F[CONTINUE]
-  F --> G[Next epoch]
-  E --> H[Save best model]
-
-
+The core workflow of **Quantum Felix** can be seen as a pipeline:
 
 ```
+[Data Loader] → [Scenario Engine] → [Runtime Executor] → [Evaluator & Metrics] → [Optimizer] → [Reporter]
+```
 
-### 🐱 Schrödinger’s Cat Analogy  
+- **Data Loader** → imports synthetic or realistic time series  
+- **Scenario Engine** → injects shocks, drift, regime switching  
+- **Runtime Executor** → runs strategies (rule-based, ML, or hybrid)  
+- **Evaluator & Metrics** → computes fidelity, improvement, Sharpe ratios, drawdowns  
+- **Optimizer** → sweeps hyperparameters and seeds  
+- **Reporter** → exports results (CSV, JSON, HTML)  
 
-The idea of *Quantum Early Stopping* is inspired by Schrödinger’s famous thought experiment:  
+---
+
+## 🔬 Implementation
+
+- **Language**: Python 3.11+  
+- **Core libraries**: NumPy, SciPy, scikit-learn, Optuna  
+- **Scenario engine**: synthetic + realistic datasets, multi-seed sweeps  
+- **Cost models**: fees, slippage, latency (useful in finance but generalizable)  
+- **Metrics**: fidelity, improvement, PnL-like returns, Sharpe ratios, drawdowns  
+- **CLI**: configuration via YAML/JSON, reproducible experiments  
+
+---
+
+## 🚀 Why It’s Different
+
+- **Deterministic vs Probabilistic**  
+  - Standard: stop at first plateau.  
+  - Felix: maintain a superposition until evidence is decisive.  
+
+- **Noise Robustness**  
+  - Small fluctuations don’t trigger false stops.  
+
+- **Generalizable**  
+  - While inspired by trading research, the same logic applies to IoT, robotics, energy, anomaly detection.  
+
+---
+
+## Schrödinger’s Cat Analogy
+
+The inspiration comes from Schrödinger’s famous thought experiment:  
 - A cat inside a box is **both alive and dead** until observed.  
-- Its state is represented by a **superposition** of two probability amplitudes.  
+- In Quantum Felix, training is likewise in a **superposed state**: both *continue* and *stop* remain possible until evidence makes one prevail.  
 
-In Quantum Felix:  
-- `psi_alive` = amplitude of the model being in the *continue training* state.  
-- `psi_dead` = amplitude of the model being in the *stop training* state.  
-- As training progresses, these amplitudes are updated based on **fidelity** (how consistent the current run is with the best past) and **improvement** (measured progress).  
-- At each step, the algorithm performs a **“collapse”** — sampling or thresholding to decide whether training continues or halts.  
-
-👉 This probabilistic framing allows the system to **delay premature stopping**, while still converging when evidence accumulates that improvement has plateaued.  
+👉 This analogy illustrates why Felix delays premature stopping while still ensuring convergence when real plateaus emerge.
 
 ---
 
-## 📖 Why It Matters  
+## 🌍 Example Use Cases
 
-Simulation frameworks often trade off between **flexibility** and **realism**.  
-Quantum Felix aims to provide:  
-- **Scenario diversity** → synthetic + realistic mixing  
-- **Systematic evaluation** → sweeps, multi-seeds, robust metrics  
-- **Auditability** → configs, seeds, and results stored for reproducibility  
-
-This makes it useful for **finance, IoT, robotics, energy, and anomaly detection**, where strategies must be validated under uncertainty and stress.  
+- **Finance** — avoid discarding potentially profitable strategies due to noisy plateaus.  
+- **Energy & IoT** — resilient to signal drift in demand/load forecasts.  
+- **Industrial Control** — predictive maintenance with probabilistic stopping instead of rigid thresholds.  
+- **Robotics** — policies continue learning under uncertain feedback.  
+- **Cybersecurity** — simulate attacks and test response without premature halts.  
 
 ---
 
-## 🌍 Example Use Cases  
-
-- 📈 **Finance & Trading** — backtest strategies with realistic cost models and stress tests.  
-- ⚡ **Energy & IoT** — demand/load simulations with drift and anomaly injection.  
-- 🏭 **Industrial Control** — predictive maintenance with multi-scenario simulations.  
-- 🤖 **Robotics** — what-if testing of policies under uncertainty and latency constraints.  
-- 🛡️ **Cybersecurity** — anomaly simulation and robust response evaluation.  
-
----
-
-## 📂 Repository Structure (planned)  
+## 📂 Repository Structure
 
 ```
 quantum-felix/
-├─ felix/
-│  ├─ data/         # data loaders & validators
-│  ├─ scenarios/    # synthetic + realistic generators
-│  ├─ strategies/   # strategy API + examples
-│  ├─ runtime/      # executor & orchestration
-│  ├─ evaluate/     # metrics & risk evaluation
-│  ├─ optimize/     # parameter sweeps, optimization
-│  └─ report/       # exporters (CSV, JSON, HTML)
-├─ configs/         # YAML presets
-├─ scripts/         # CLI tools
-├─ examples/        # notebooks and demos
-├─ tests/
+├─ src/felix/
+│  ├─ quantum_cat.py       # main quantum-inspired early stopping engine
+│  ├─ __main__.py          # entry point
+│  └─ __init__.py
+├─ scripts/
+│  └─ run_quantum_cat.py   # CLI wrapper
 ├─ README.md
-├─ LICENSE
-└─ requirements.txt
+├─ requirements.txt
+└─ LICENSE
 ```
 
 ---
 
-## ⚙️ Quickstart (WIP)  
+## 🚀 Quick Start
 
 ```bash
-# Install dependencies
-pip install -r requirements.txt
+# Install in editable mode
+py -3.13 -m pip install -e .
 
-# Run a simple scenario backtest (WIP)
-python scripts/run_backtest.py --config configs/example.yaml --strategy mean_revert.yaml
+# Run help
+quantum-cat --help
+
+# Run with test config
+quantum-cat --complex-test --realistic
 ```
 
 ---
 
-## 🚧 Status  
-
-This project is **Work in Progress**:  
-- ✅ Core ideas implemented (scenarios, sweeps, cost models)  
-- 🛠️ Modularization in progress (Strategy API, reporting)  
-- 🔮 Planned integrations (AstroMind-4D bridge, HTML reports)  
-
----
-
-## 🤝 Contributing  
-
-Contributions are welcome, especially in:  
-- Modular **Strategy API** design  
-- Extended **metrics & reporting**  
-- Domain-specific scenarios (finance, robotics, energy)  
-
----
-
-## 📜 License  
-
-This project is licensed under the **Apache License 2.0**.  
-See [LICENSE](./LICENSE) for details.  
+## 📜 License
+Apache License 2.0
