@@ -1,140 +1,191 @@
 
-# 🔮 NEXUS-EMB-240M-NSA — Starter Kit  
+[README.md](https://github.com/user-attachments/files/22244235/README.md)
+# ⚡ Quantum Felix — Scenario & Strategy Simulation Engine  
 
-[![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg?logo=python)](https://www.python.org/)  
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.4+-EE4C2C.svg?logo=pytorch)](https://pytorch.org/)  
-[![Transformers](https://img.shields.io/badge/HF-Transformers-yellow.svg?logo=huggingface)](https://huggingface.co/transformers/)  
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-green.svg)](./LICENSE)  
+[![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg?logo=python)](https://www.python.org/)  
 [![Status](https://img.shields.io/badge/status-Research--Preview-orange)]()  
-[![Made with ❤️](https://img.shields.io/badge/Made%20with-%E2%9D%A4-red)]()  
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-green.svg)](./LICENSE)  
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](./CONTRIBUTING.md)  
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/)  
 
-**NEXUS-EMB-240M-NSA** is a **compact dual-head embedding model** optimized for **edge-first inference** and **high-performance vector search**.  
-This starter kit provides everything needed to **train, evaluate, and export** a state-of-the-art custom embedding model, integrating unconventional techniques for **accuracy, speed, and adaptability**.  
+**Quantum Felix** is an **experimental simulation and orchestration engine** designed for **multi-scenario testing, large-scale backtesting, and strategy optimization**.  
+It is currently in a **Research Preview** stage — functional, but still being structured and systematized.  
+
+---
+
+## ✨ Key Features (in progress)  
+
+- 🔁 **Scenario Factory**  
+  - Realistic + synthetic trajectories  
+  - Regime switching, shocks, and drift injection  
+
+- 🧪 **Backtesting & Stress Testing**  
+  - Walk-forward analysis  
+  - Multi-seed Monte Carlo sweeps  
+  - τ-sweep regime exploration  
+
+- 🧭 **Strategy Orchestration**  
+  - Plug-in Strategy API (under development)  
+  - Support for rule-based, ML, or hybrid policies  
+
+- 🧯 **Cost & Risk Profiling**  
+  - Transaction fee, spread, slippage models  
+  - Latency and memory profiling (planned)  
+
+- 📊 **Metrics & Reporting**  
+  - PnL, Sharpe/Sortino, Drawdown, Stability Index  
+  - JSON/CSV summaries, HTML reports (WIP)  
+
+- 🧩 **Integration with AstroMind-4D (planned)**  
+  - Use AstroMind outputs as **policy signals**  
+  - Apply MetaSentinel gating for risk control  
 
 ---
 
-## ✨ Key Features  
+## 🧩 Architecture (Conceptual)  
 
-- **🧭 Dual-Head Architecture (Semantic & Entity)**  
-  Unlike traditional embedding models that generate a single vector representation, **NEXUS-EMB-240M-NSA** introduces a **dual-head design**.  
-  - The **semantic head** focuses on capturing **general meaning and contextual relationships**, enabling accurate semantic similarity and natural language understanding.  
-  - The **entity head** is optimized for identifying **specific terms, entities, and domain-relevant markers**, giving the model sharper resolution in high-precision tasks.  
-  When combined, these two vectors form a **768-dimensional embedding** that is **exceptionally rich and fine-grained**, improving accuracy in **complex search, recommendation, and knowledge extraction pipelines**.  
+```mermaid
+flowchart TD
+    D[Data Loader] --> S[Scenario Engine]
+    S --> R[Runtime Executor]
+    R --> E[Evaluator & Metrics]
+    E --> O[Optimizer]
+    O --> REP[Reporter]
 
-- **🌐 Neural Spectral Anchoring (NSA)**  
-  This advanced mechanism projects embeddings into a **spectral space** rather than a standard Euclidean vector space. By doing so, the model:  
-  - Learns **optimized relational structures** that capture deeper semantic dependencies.  
-  - Produces embeddings that are **better organized and separable**, which improves retrieval performance in dense databases.  
-  - Goes **beyond conventional supervised training**, incorporating a **spectral optimization process** that grants the model a more **structural understanding of your data**.  
-  In practice, NSA ensures **higher precision and efficiency** in vector search and retrieval, making it well-suited for enterprise-scale deployments.  
+    subgraph Scenario Engine
+        SYN[Synthetic Generator] --> S
+        REAL[Realistic Ingest] --> S
+        REG[Regime Switcher] --> S
+    end
 
-- **⚡ Residual Hashing Bridge**  
-  Designed for scenarios where **latency is critical**, this feature integrates a **64-bit residual hashing bridge** that supports **fast candidate pre-filtering**.  
-  - It enables a **two-stage retrieval process**: first, rapidly eliminate unlikely matches using the hash, then refine results with the full embedding.  
-  - The result is a **drastic reduction in search space**, which cuts down computational cost and accelerates queries without degrading final accuracy.  
-  This capability makes the model ideal for **real-time recommendation systems, financial applications, and large-scale search engines**, where speed is just as important as accuracy.  
-
-- **🪆 Matryoshka Embeddings**  
-  Recognizing the diverse hardware and memory constraints of modern deployments, the model includes **native support for flexible embedding sizes**.  
-  - You can resize the final embeddings to **768, 512, or 256 dimensions** depending on performance and memory trade-offs.  
-  - Larger embeddings (768) retain full richness for high-accuracy offline tasks, while smaller embeddings (256) make the model deployable on **resource-constrained devices** like edge hardware or mobile processors.  
-  - This **scalable design** enables a single model to adapt across environments ranging from **cloud-scale vector databases** to **lightweight mobile inference**.  
+    subgraph Runtime Executor
+        STRAT[Strategy API] --> R
+    end
+```
 
 ---
+
+## 🐈 Quantum Early Stopping (Unique Approach)  
+
+One of the most distinctive features of **Quantum Felix** is its **probabilistic “quantum-inspired” approach** to managing early stopping and overfitting:  
+
+- **Unique Method** → Instead of deterministic thresholds, Quantum Felix uses a metaphor of **quantum state collapse** to decide when to stop or continue training.  
+
+- **Core Concepts**:  
+  - `psi_alive` / `psi_dead` represent the **probability amplitudes** of the system being in a *continue* vs *stop* state.  
+  - `cat_fidelity` measures how well the current trajectory aligns with the best past states.  
+  - Probabilities are updated dynamically based on **fidelity** and **observed improvement**.  
+
+- **Why it helps**:  
+  - Avoids **premature stopping**, allowing models to explore potential performance gains.  
+  - Provides a **softer, probabilistic decision rule** instead of a hard cutoff.  
+
+- **Challenges**:  
+  - The effectiveness depends on how well `fidelity` and `improvement` reflect actual training progress.  
+  - Debugging and tuning can be harder than with deterministic early stopping.  
+
+- **In summary**: This is a **creative and unconventional experiment**. If effective, it could provide a new way to manage **training robustness and resilience** in ML pipelines.  
+
+
+### 🧭 Flow Diagram
+
+```mermaid
+flowchart TD
+    A[Start Training Epoch t] --> B[Compute validation metrics]
+    B --> C[Compute improvement Δ and fidelity F]
+    C --> D[Update amplitudes ψ_alive, ψ_dead]
+    D --> E[Normalize amplitudes (|ψ|^2 = 1)]
+    E --> F{Decision rule}
+    F -->|Sample / Threshold| G[Collapse to state]
+    G -->|ψ_dead| H[STOP training]
+    G -->|ψ_alive| I[CONTINUE training]
+    I --> J[Proceed to epoch t+1]
+    H --> K[Save best model / finalize]
+    
+    subgraph Update Equations (conceptual)
+        U1[ψ_alive ← ψ_alive + α·g(F, Δ)] --> U3[softclip]
+        U2[ψ_dead  ← ψ_dead  + β·h(F, Δ)] --> U3
+    end
+
+    C -.-> U1
+    C -.-> U2
+    U3 -.-> D
+```
+
+---
+
 
 ## 📖 Why It Matters  
 
-Unlike standard compressed embeddings, **NEXUS-EMB-240M-NSA** offers:  
+Simulation frameworks often trade off between **flexibility** and **realism**.  
+Quantum Felix aims to provide:  
+- **Scenario diversity** → synthetic + realistic mixing  
+- **Systematic evaluation** → sweeps, multi-seeds, robust metrics  
+- **Auditability** → configs, seeds, and results stored for reproducibility  
 
-- Compact yet semantically robust embeddings  
-- Built-in **acceleration for search tasks**  
-- Flexible deployment: **semantic search, entity resolution, recommendation**  
-
-Enabling **enterprise-grade performance** from **mobile edge devices** to **large-scale clusters**.  
-
----
-
-## ⚙️ Quickstart  
-
-### 1. Setup environment  
-```bash
-pip install torch==2.4.0 transformers sentencepiece einops faiss-cpu
-```
-
-### 2. Train a tokenizer  
-```bash
-python scripts/build_tokenizer.py   --corpus path/to/corpus.txt   --vocab 48000   --out_prefix tokenizer_spm_48k
-```
-
-### 3. Train the model  
-```bash
-python scripts/train.py   --config configs/nexus_emb_240m.json   --pairs data/your_pairs.jsonl   --tokenizer_model tokenizer_spm_48k.model   --batch 64 --max_len 128 --steps 1000
-```
-
-### 4. Evaluate  
-```bash
-python scripts/eval_mteb_lite.py   --config configs/nexus_emb_240m.json   --tokenizer_model tokenizer_spm_48k.model
-```
-
-### 5. Export to ONNX  
-```bash
-python scripts/export_onnx.py   --config configs/nexus_emb_240m.json   --out artifacts/nexus_emb_240m_nsa.onnx --seq_len 128
-```
+This makes it useful for **finance, IoT, robotics, energy, and anomaly detection**, where strategies must be validated under uncertainty and stress.  
 
 ---
 
-## 💡 Use Cases  
+## 🌍 Example Use Cases  
 
-- 🔎 **Semantic Search** — domain-specific and multilingual retrieval  
-- 🏷️ **Entity Resolution** — deduplication across structured/unstructured data  
-- 🎯 **Recommendations** — personalization with efficient embeddings  
-- 📊 **Clustering & Analytics** — scalable unsupervised grouping  
-- 📱 **Edge Deployment** — low-latency, memory-aware inference  
-
----
-
-## 🔧 Industrial & Business Applications  
-
-- **🔎 Semantic Search Engines** — enterprise knowledge bases, legal/medical docs, product catalogs  
-- **🏷️ Entity Resolution** — merge duplicates across CRM/ERP/supply chain systems  
-- **🎯 Recommendation Systems** — e-commerce, media, fintech personalization at scale  
-- **📊 Business Intelligence** — detect anomalies & trends in customer, IoT, or financial data  
-- **📱 Edge & Mobile** — on-device analytics in AR/VR, smart assistants, retail kiosks  
-- **🌐 Multilingual Knowledge Management** — dual-head embeddings bridging global datasets  
+- 📈 **Finance & Trading** — backtest strategies with realistic cost models and stress tests.  
+- ⚡ **Energy & IoT** — demand/load simulations with drift and anomaly injection.  
+- 🏭 **Industrial Control** — predictive maintenance with multi-scenario simulations.  
+- 🤖 **Robotics** — what-if testing of policies under uncertainty and latency constraints.  
+- 🛡️ **Cybersecurity** — anomaly simulation and robust response evaluation.  
 
 ---
 
-## 🔬 Advanced Training Notes  
-
-- Use **hard-negative mining** + **Knowledge Distillation** from larger teachers  
-- **RoPE** and **FlashAttention**: off by default for stability; enable for HPC training  
-
----
-
-## 📂 Repository Structure  
+## 📂 Repository Structure (planned)  
 
 ```
-NEXUS-EMB-240M-NSA/
-├── configs/
-│   └── nexus_emb_240m.json
-├── scripts/
-│   ├── build_tokenizer.py
-│   ├── train.py
-│   ├── eval_mteb_lite.py
-│   └── export_onnx.py
-├── data/
-│   └── your_pairs.jsonl
-├── artifacts/
-└── README.md
+quantum-felix/
+├─ felix/
+│  ├─ data/         # data loaders & validators
+│  ├─ scenarios/    # synthetic + realistic generators
+│  ├─ strategies/   # strategy API + examples
+│  ├─ runtime/      # executor & orchestration
+│  ├─ evaluate/     # metrics & risk evaluation
+│  ├─ optimize/     # parameter sweeps, optimization
+│  └─ report/       # exporters (CSV, JSON, HTML)
+├─ configs/         # YAML presets
+├─ scripts/         # CLI tools
+├─ examples/        # notebooks and demos
+├─ tests/
+├─ README.md
+├─ LICENSE
+└─ requirements.txt
 ```
+
+---
+
+## ⚙️ Quickstart (WIP)  
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Run a simple scenario backtest (WIP)
+python scripts/run_backtest.py --config configs/example.yaml --strategy mean_revert.yaml
+```
+
+---
+
+## 🚧 Status  
+
+This project is **Work in Progress**:  
+- ✅ Core ideas implemented (scenarios, sweeps, cost models)  
+- 🛠️ Modularization in progress (Strategy API, reporting)  
+- 🔮 Planned integrations (AstroMind-4D bridge, HTML reports)  
 
 ---
 
 ## 🤝 Contributing  
 
-Contributions are welcome! Please open issues and pull requests to help improve training scripts, configs, or evaluation pipelines.  
+Contributions are welcome, especially in:  
+- Modular **Strategy API** design  
+- Extended **metrics & reporting**  
+- Domain-specific scenarios (finance, robotics, energy)  
 
 ---
 
