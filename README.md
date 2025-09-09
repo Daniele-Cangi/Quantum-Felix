@@ -1,142 +1,144 @@
 
-# Quantum Felix — Quantum-Inspired Simulation & Strategy Engine
+# 🔮 NEXUS-EMB-240M-NSA — Starter Kit  
 
-**Quantum Felix** is a research prototype that introduces a *quantum-inspired early stopping* mechanism for simulations, backtesting, and stress-testing under uncertainty.  
-Although entirely classical (Python, NumPy, SciPy), it borrows concepts from **quantum mechanics** to manage uncertainty in model training and evaluation.
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg?logo=python)](https://www.python.org/)  
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.4+-EE4C2C.svg?logo=pytorch)](https://pytorch.org/)  
+[![Transformers](https://img.shields.io/badge/HF-Transformers-yellow.svg?logo=huggingface)](https://huggingface.co/transformers/)  
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-green.svg)](./LICENSE)  
+[![Status](https://img.shields.io/badge/status-Research--Preview-orange)]()  
+[![Made with ❤️](https://img.shields.io/badge/Made%20with-%E2%9D%A4-red)]()  
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](./CONTRIBUTING.md)  
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/)  
 
----
-
-## ⚙️ Technology Core
-
-Traditional early stopping monitors a validation metric and stops once it flattens.  
-This is simple but **too deterministic**: noise or temporary stagnation often trigger *premature stopping*.
-
-Quantum Felix replaces the binary rule with a **probabilistic model**:
-
-- `psi_alive` → amplitude that training should continue  
-- `psi_dead` → amplitude that training should stop  
-- **Update rules**:
-  - `psi_alive` increases if *fidelity* (consistency with the best past result) and *improvement* are high  
-  - `psi_dead` increases otherwise  
-- Amplitudes are **normalized** so that |psi_alive|² + |psi_dead|² = 1  
-- At each epoch the system performs a **collapse**:
-  - If `psi_dead` dominates → STOP  
-  - Else → CONTINUE  
-
-This approach introduces **stochastic buffering**: the model can explore deeper even if short-term signals are ambiguous.
+**NEXUS-EMB-240M-NSA** is a **compact dual-head embedding model** optimized for **edge-first inference** and **high-performance vector search**.  
+This starter kit provides everything needed to **train, evaluate, and export** a state-of-the-art custom embedding model, integrating unconventional techniques for **accuracy, speed, and adaptability**.  
 
 ---
 
-## 🧩 Architecture (Conceptual)
+## ✨ Key Features  
 
-The **Quantum Felix pipeline** can be summarized as:
+- **🧭 Dual-Head Architecture (Semantic & Entity)**  
+  Unlike traditional embedding models that generate a single vector representation, **NEXUS-EMB-240M-NSA** introduces a **dual-head design**.  
+  - The **semantic head** focuses on capturing **general meaning and contextual relationships**, enabling accurate semantic similarity and natural language understanding.  
+  - The **entity head** is optimized for identifying **specific terms, entities, and domain-relevant markers**, giving the model sharper resolution in high-precision tasks.  
+  When combined, these two vectors form a **768-dimensional embedding** that is **exceptionally rich and fine-grained**, improving accuracy in **complex search, recommendation, and knowledge extraction pipelines**.  
 
-```
-+-------------+     +-----------------+     +------------------+
-| Data Loader | --> | Scenario Engine | --> | Runtime Executor |
-+-------------+     +-----------------+     +------------------+
-                                                 |
-                                                 v
-                                          +---------------------+
-                                          | Evaluator & Metrics |
-                                          +---------------------+
-                                                 |
-                                                 v
-                                          +-----------+
-                                          | Optimizer |
-                                          +-----------+
-                                                 |
-                                                 v
-                                          +----------+
-                                          | Reporter |
-                                          +----------+
-```
+- **🌐 Neural Spectral Anchoring (NSA)**  
+  This advanced mechanism projects embeddings into a **spectral space** rather than a standard Euclidean vector space. By doing so, the model:  
+  - Learns **optimized relational structures** that capture deeper semantic dependencies.  
+  - Produces embeddings that are **better organized and separable**, which improves retrieval performance in dense databases.  
+  - Goes **beyond conventional supervised training**, incorporating a **spectral optimization process** that grants the model a more **structural understanding of your data**.  
+  In practice, NSA ensures **higher precision and efficiency** in vector search and retrieval, making it well-suited for enterprise-scale deployments.  
 
-- **Data Loader** → imports synthetic or realistic time series  
-- **Scenario Engine** → injects shocks, drift, regime switching  
-- **Runtime Executor** → runs strategies (rule-based, ML, or hybrid)  
-- **Evaluator & Metrics** → computes fidelity, improvement, Sharpe ratios, drawdowns  
-- **Optimizer** → sweeps hyperparameters and seeds  
-- **Reporter** → exports results (CSV, JSON, HTML)  
+- **⚡ Residual Hashing Bridge**  
+  Designed for scenarios where **latency is critical**, this feature integrates a **64-bit residual hashing bridge** that supports **fast candidate pre-filtering**.  
+  - It enables a **two-stage retrieval process**: first, rapidly eliminate unlikely matches using the hash, then refine results with the full embedding.  
+  - The result is a **drastic reduction in search space**, which cuts down computational cost and accelerates queries without degrading final accuracy.  
+  This capability makes the model ideal for **real-time recommendation systems, financial applications, and large-scale search engines**, where speed is just as important as accuracy.  
+
+- **🪆 Matryoshka Embeddings**  
+  Recognizing the diverse hardware and memory constraints of modern deployments, the model includes **native support for flexible embedding sizes**.  
+  - You can resize the final embeddings to **768, 512, or 256 dimensions** depending on performance and memory trade-offs.  
+  - Larger embeddings (768) retain full richness for high-accuracy offline tasks, while smaller embeddings (256) make the model deployable on **resource-constrained devices** like edge hardware or mobile processors.  
+  - This **scalable design** enables a single model to adapt across environments ranging from **cloud-scale vector databases** to **lightweight mobile inference**.  
 
 ---
 
-## 🔬 Implementation
+## 📖 Why It Matters  
 
-- **Language**: Python 3.11+  
-- **Core libraries**: NumPy, SciPy, scikit-learn, Optuna  
-- **Scenario engine**: synthetic + realistic datasets, multi-seed sweeps  
-- **Cost models**: fees, slippage, latency (useful in finance but generalizable)  
-- **Metrics**: fidelity, improvement, PnL-like returns, Sharpe ratios, drawdowns  
-- **CLI**: configuration via YAML/JSON, reproducible experiments  
+Unlike standard compressed embeddings, **NEXUS-EMB-240M-NSA** offers:  
 
----
+- Compact yet semantically robust embeddings  
+- Built-in **acceleration for search tasks**  
+- Flexible deployment: **semantic search, entity resolution, recommendation**  
 
-## 🚀 Why It’s Different
-
-- **Deterministic vs Probabilistic**  
-  - Standard: stop at first plateau.  
-  - Felix: maintain a superposition until evidence is decisive.  
-
-- **Noise Robustness**  
-  - Small fluctuations don’t trigger false stops.  
-
-- **Generalizable**  
-  - While inspired by trading research, the same logic applies to IoT, robotics, energy, anomaly detection.  
+Enabling **enterprise-grade performance** from **mobile edge devices** to **large-scale clusters**.  
 
 ---
 
-## Schrödinger’s Cat Analogy
+## ⚙️ Quickstart  
 
-The inspiration comes from Schrödinger’s famous thought experiment:  
-- A cat inside a box is **both alive and dead** until observed.  
-- In Quantum Felix, training is likewise in a **superposed state**: both *continue* and *stop* remain possible until evidence makes one prevail.  
-
-👉 This analogy illustrates why Felix delays premature stopping while still ensuring convergence when real plateaus emerge.
-
----
-
-## 🌍 Example Use Cases
-
-- **Finance** — avoid discarding potentially profitable strategies due to noisy plateaus.  
-- **Energy & IoT** — resilient to signal drift in demand/load forecasts.  
-- **Industrial Control** — predictive maintenance with probabilistic stopping instead of rigid thresholds.  
-- **Robotics** — policies continue learning under uncertain feedback.  
-- **Cybersecurity** — simulate attacks and test response without premature halts.  
-
----
-
-## 📂 Repository Structure
-
-```
-quantum-felix/
-├─ src/felix/
-│  ├─ quantum_cat.py       # main quantum-inspired early stopping engine
-│  ├─ __main__.py          # entry point
-│  └─ __init__.py
-├─ scripts/
-│  └─ run_quantum_cat.py   # CLI wrapper
-├─ README.md
-├─ requirements.txt
-└─ LICENSE
-```
-
----
-
-## 🚀 Quick Start
-
+### 1. Setup environment  
 ```bash
-# Install in editable mode
-py -3.13 -m pip install -e .
+pip install torch==2.4.0 transformers sentencepiece einops faiss-cpu
+```
 
-# Run help
-quantum-cat --help
+### 2. Train a tokenizer  
+```bash
+python scripts/build_tokenizer.py   --corpus path/to/corpus.txt   --vocab 48000   --out_prefix tokenizer_spm_48k
+```
 
-# Run with test config
-quantum-cat --complex-test --realistic
+### 3. Train the model  
+```bash
+python scripts/train.py   --config configs/nexus_emb_240m.json   --pairs data/your_pairs.jsonl   --tokenizer_model tokenizer_spm_48k.model   --batch 64 --max_len 128 --steps 1000
+```
+
+### 4. Evaluate  
+```bash
+python scripts/eval_mteb_lite.py   --config configs/nexus_emb_240m.json   --tokenizer_model tokenizer_spm_48k.model
+```
+
+### 5. Export to ONNX  
+```bash
+python scripts/export_onnx.py   --config configs/nexus_emb_240m.json   --out artifacts/nexus_emb_240m_nsa.onnx --seq_len 128
 ```
 
 ---
 
-## 📜 License
-Apache License 2.0
+## 💡 Use Cases  
+
+- 🔎 **Semantic Search** — domain-specific and multilingual retrieval  
+- 🏷️ **Entity Resolution** — deduplication across structured/unstructured data  
+- 🎯 **Recommendations** — personalization with efficient embeddings  
+- 📊 **Clustering & Analytics** — scalable unsupervised grouping  
+- 📱 **Edge Deployment** — low-latency, memory-aware inference  
+
+---
+
+## 🔧 Industrial & Business Applications  
+
+- **🔎 Semantic Search Engines** — enterprise knowledge bases, legal/medical docs, product catalogs  
+- **🏷️ Entity Resolution** — merge duplicates across CRM/ERP/supply chain systems  
+- **🎯 Recommendation Systems** — e-commerce, media, fintech personalization at scale  
+- **📊 Business Intelligence** — detect anomalies & trends in customer, IoT, or financial data  
+- **📱 Edge & Mobile** — on-device analytics in AR/VR, smart assistants, retail kiosks  
+- **🌐 Multilingual Knowledge Management** — dual-head embeddings bridging global datasets  
+
+---
+
+## 🔬 Advanced Training Notes  
+
+- Use **hard-negative mining** + **Knowledge Distillation** from larger teachers  
+- **RoPE** and **FlashAttention**: off by default for stability; enable for HPC training  
+
+---
+
+## 📂 Repository Structure  
+
+```
+NEXUS-EMB-240M-NSA/
+├── configs/
+│   └── nexus_emb_240m.json
+├── scripts/
+│   ├── build_tokenizer.py
+│   ├── train.py
+│   ├── eval_mteb_lite.py
+│   └── export_onnx.py
+├── data/
+│   └── your_pairs.jsonl
+├── artifacts/
+└── README.md
+```
+
+---
+
+## 🤝 Contributing  
+
+Contributions are welcome! Please open issues and pull requests to help improve training scripts, configs, or evaluation pipelines.  
+
+---
+
+## 📜 License  
+
+This project is licensed under the **Apache License 2.0**.  
+See [LICENSE](./LICENSE) for details.  
