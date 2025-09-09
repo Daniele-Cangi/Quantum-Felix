@@ -84,23 +84,6 @@ One of the most distinctive features of **Quantum Felix** is its **probabilistic
 
 - **In summary**: This is a **creative and unconventional experiment**. If effective, it could provide a new way to manage **training robustness and resilience** in ML pipelines.  
 
-### 🧭 Flow Diagram  
-
-```mermaid
-### 🧭 Flow Diagram  
-
-```mermaid
-graph TD
-  A[Start training epoch] --> B[Compute validation metrics]
-  B --> C[Update amplitudes]
-  C --> D{Decision}
-  D --> E[STOP]
-  D --> F[CONTINUE]
-  F --> G[Next epoch]
-  E --> H[Save best model]
-
-
-
 ```
 
 ### 🐱 Schrödinger’s Cat Analogy  
