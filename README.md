@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/22244356/README.md)
+
 # ⚡ Quantum Felix — Scenario & Strategy Simulation Engine  
 
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg?logo=python)](https://www.python.org/)  
@@ -84,25 +84,6 @@ One of the most distinctive features of **Quantum Felix** is its **probabilistic
 
 - **In summary**: This is a **creative and unconventional experiment**. If effective, it could provide a new way to manage **training robustness and resilience** in ML pipelines.  
 
-### 🧭 Flow Diagram  
-
-```mermaid
-### 🧭 Flow Diagram  
-
-```mermaid
-graph TD
-  A[Start training epoch] --> B[Compute validation metrics]
-  B --> C[Update amplitudes]
-  C --> D{Decision}
-  D --> E[STOP]
-  D --> F[CONTINUE]
-  F --> G[Next epoch]
-  E --> H[Save best model]
-
-
-
-```
-
 ### 🐱 Schrödinger’s Cat Analogy  
 
 The idea of *Quantum Early Stopping* is inspired by Schrödinger’s famous thought experiment:  
@@ -116,8 +97,6 @@ In Quantum Felix:
 - At each step, the algorithm performs a **“collapse”** — sampling or thresholding to decide whether training continues or halts.  
 
 👉 This probabilistic framing allows the system to **delay premature stopping**, while still converging when evidence accumulates that improvement has plateaued.  
-
----
 
 ## 📖 Why It Matters  
 
