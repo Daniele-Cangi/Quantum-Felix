@@ -29,45 +29,27 @@ This approach introduces **stochastic buffering**: the model can explore deeper 
 
 ## 🧩 Architecture (Conceptual)
 
-The core workflow of **Quantum Felix** can be viewed as a pipeline.
-
-**Linear view**
+The **Quantum Felix pipeline** can be summarized as:
 
 ```
-[Data Loader] -> [Scenario Engine] -> [Runtime Executor] -> [Evaluator & Metrics] -> [Optimizer] -> [Reporter]
-```
-
-**Block diagram (ASCII, GitHub-safe)**
-
-```
-+-------------+
-| Data Loader |
-+-------------+
-       |
-       v
-+-----------------+
-| Scenario Engine |
-+-----------------+
-       |
-       v
-+------------------+
-| Runtime Executor |
-+------------------+
-       |
-       v
-+---------------------+
-| Evaluator & Metrics |
-+---------------------+
-       |
-       v
-+-----------+
-| Optimizer |
-+-----------+
-       |
-       v
-+----------+
-| Reporter |
-+----------+
++-------------+     +-----------------+     +------------------+
+| Data Loader | --> | Scenario Engine | --> | Runtime Executor |
++-------------+     +-----------------+     +------------------+
+                                                 |
+                                                 v
+                                          +---------------------+
+                                          | Evaluator & Metrics |
+                                          +---------------------+
+                                                 |
+                                                 v
+                                          +-----------+
+                                          | Optimizer |
+                                          +-----------+
+                                                 |
+                                                 v
+                                          +----------+
+                                          | Reporter |
+                                          +----------+
 ```
 
 - **Data Loader** → imports synthetic or realistic time series  
