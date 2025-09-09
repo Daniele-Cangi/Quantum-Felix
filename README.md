@@ -88,10 +88,11 @@ One of the most distinctive features of **Quantum Felix** is its **probabilistic
 
 ```mermaid
 flowchart TD
+   flowchart TD
     A[Start training epoch t] --> B[Compute validation metrics]
-    B --> C[Compute improvement Δ and fidelity F]
+    B --> C[Compute improvement Delta and fidelity F]
     C --> D[Update amplitudes psi_alive, psi_dead]
-    D --> E[Normalize amplitudes (&#124;psi&#124;^2 = 1)]
+    D --> E[Normalize amplitudes (abs(psi)^2 = 1)]
     E --> F{Decision rule}
     F -->|Sample / Threshold| G[Collapse to state]
     G -->|psi_dead| H[STOP training]
@@ -100,13 +101,14 @@ flowchart TD
     H --> K[Save best model / finalize]
 
     subgraph Update_Equations [Update Equations (conceptual)]
-        U1[psi_alive <- psi_alive + alpha * g(F, Δ)] --> U3[softclip]
-        U2[psi_dead  <- psi_dead  + beta  * h(F, Δ)] --> U3
+        U1[psi_alive <- psi_alive + alpha * g(F, Delta)] --> U3[softclip]
+        U2[psi_dead  <- psi_dead  + beta  * h(F, Delta)] --> U3
     end
 
     C -.-> U1
     C -.-> U2
     U3 -.-> D
+
 
 ```
 
