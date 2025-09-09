@@ -1,4 +1,4 @@
-
+[README.md](https://github.com/user-attachments/files/22244356/README.md)
 # ⚡ Quantum Felix — Scenario & Strategy Simulation Engine  
 
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg?logo=python)](https://www.python.org/)  
@@ -84,34 +84,40 @@ One of the most distinctive features of **Quantum Felix** is its **probabilistic
 
 - **In summary**: This is a **creative and unconventional experiment**. If effective, it could provide a new way to manage **training robustness and resilience** in ML pipelines.  
 
-
-### 🧭 Flow Diagram
+### 🧭 Flow Diagram  
 
 ```mermaid
-flowchart TD
-    A[Start Training Epoch t] --> B[Compute validation metrics]
-    B --> C[Compute improvement Δ and fidelity F]
-    C --> D[Update amplitudes ψ_alive, ψ_dead]
-    D --> E[Normalize amplitudes (|ψ|^2 = 1)]
-    E --> F{Decision rule}
-    F -->|Sample / Threshold| G[Collapse to state]
-    G -->|ψ_dead| H[STOP training]
-    G -->|ψ_alive| I[CONTINUE training]
-    I --> J[Proceed to epoch t+1]
-    H --> K[Save best model / finalize]
-    
-    subgraph Update Equations (conceptual)
-        U1[ψ_alive ← ψ_alive + α·g(F, Δ)] --> U3[softclip]
-        U2[ψ_dead  ← ψ_dead  + β·h(F, Δ)] --> U3
-    end
+### 🧭 Flow Diagram  
 
-    C -.-> U1
-    C -.-> U2
-    U3 -.-> D
+```mermaid
+graph TD
+  A[Start training epoch] --> B[Compute validation metrics]
+  B --> C[Update amplitudes]
+  C --> D{Decision}
+  D --> E[STOP]
+  D --> F[CONTINUE]
+  F --> G[Next epoch]
+  E --> H[Save best model]
+
+
+
 ```
 
----
+### 🐱 Schrödinger’s Cat Analogy  
 
+The idea of *Quantum Early Stopping* is inspired by Schrödinger’s famous thought experiment:  
+- A cat inside a box is **both alive and dead** until observed.  
+- Its state is represented by a **superposition** of two probability amplitudes.  
+
+In Quantum Felix:  
+- `psi_alive` = amplitude of the model being in the *continue training* state.  
+- `psi_dead` = amplitude of the model being in the *stop training* state.  
+- As training progresses, these amplitudes are updated based on **fidelity** (how consistent the current run is with the best past) and **improvement** (measured progress).  
+- At each step, the algorithm performs a **“collapse”** — sampling or thresholding to decide whether training continues or halts.  
+
+👉 This probabilistic framing allows the system to **delay premature stopping**, while still converging when evidence accumulates that improvement has plateaued.  
+
+---
 
 ## 📖 Why It Matters  
 
