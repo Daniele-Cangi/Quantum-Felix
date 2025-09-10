@@ -1,0 +1,71 @@
+# GitHub Pages Configuration for Quantum Felix
+title: "Quantum Felix"
+description: "Scenario & Strategy Simulation Engine for Multi-Scenario Testing and Strategy Optimization"
+baseurl: "/Quantum-Felix"
+url: "https://daniele-cangi.github.io"
+
+# Repository information
+repository: "Daniele-Cangi/Quantum-Felix"
+
+# Theme configuration
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Navigation
+header_pages:
+  - index.md
+  - features.md
+  - documentation.md
+  - examples.md
+
+# Author information
+author:
+  name: "Daniele Cangi"
+  email: ""
+
+# Social links
+github_username: Daniele-Cangi
+
+# Markdown settings
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  syntax_highlighter: rouge
+
+# Exclude files from processing
+exclude:
+  - src/
+  - tests/
+  - requirements.txt
+  - pyproject.toml
+  - .git/
+  - .gitignore
+  - vendor/
+  - Gemfile
+  - Gemfile.lock
+
+# Include files
+include:
+  - _pages
+
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:name/
+
+# Default settings
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
