@@ -155,6 +155,52 @@ python scripts/run_backtest.py --config configs/example.yaml --strategy mean_rev
 
 ---
 
+## 🧹 Cleanup & File Deletion  
+
+**Come lo elimino?** (How do I delete it?)
+
+If you need to clean up generated files and build artifacts, use the included cleanup script:
+
+```bash
+# Preview what will be deleted (recommended first)
+python cleanup.py --dry-run
+
+# Delete all build artifacts and generated files
+python cleanup.py
+
+# Delete only specific types
+python cleanup.py --python-only     # Only Python cache files
+python cleanup.py --build-only      # Only build artifacts  
+python cleanup.py --quantum-only    # Only Quantum Felix generated files
+```
+
+### What Gets Deleted:
+
+- **Python Cache**: `__pycache__/` directories, `.pyc` files
+- **Build Artifacts**: `*.egg-info/`, `build/`, `dist/` directories
+- **Generated Files**: `effective_config.json`, `complex_steps.csv`, `complex_summary.json`  
+- **Temporary Files**: Log files, editor temp files, IDE configurations
+
+### Manual Deletion:
+
+If you prefer manual cleanup:
+
+```bash
+# Remove Python cache
+find . -name "__pycache__" -type d -exec rm -rf {} +
+find . -name "*.pyc" -delete
+
+# Remove build artifacts  
+rm -rf src/*.egg-info build/ dist/ .eggs/
+
+# Remove generated config files
+rm -f src/felix/effective_config.json complex_steps.csv complex_summary.json
+```
+
+**Note**: The `.gitignore` file is configured to prevent these files from being committed in the future.
+
+---
+
 ## 🚧 Status  
 
 This project is **Work in Progress**:  
