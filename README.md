@@ -1,6 +1,8 @@
 
 # ⚡ Quantum Felix — Scenario & Strategy Simulation Engine  
 
+[![CI](https://github.com/Daniele-Cangi/Quantum-Felix/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Daniele-Cangi/Quantum-Felix/actions/workflows/ci.yml)
+
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg?logo=python)](https://www.python.org/)  
 [![Status](https://img.shields.io/badge/status-Research--Preview-orange)]()  
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-green.svg)](./LICENSE)  

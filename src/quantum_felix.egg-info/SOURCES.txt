@@ -9,3 +9,4 @@ src/quantum_felix.egg-info/SOURCES.txt
 src/quantum_felix.egg-info/dependency_links.txt
 src/quantum_felix.egg-info/entry_points.txt
 src/quantum_felix.egg-info/top_level.txt
+tests/test_sanity.py
